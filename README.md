@@ -75,7 +75,7 @@ HTMLテンプレートに含まれるjsとかcssのパスをここに記述し�
 
 ### HTMLヘッダの例
 
-<pre>
+```html
 <!-- %PAGE:
     page_type           = 'archive',
     has_comment         = False,
@@ -84,18 +84,18 @@ HTMLテンプレートに含まれるjsとかcssのパスをここに記述し�
     content_template    = 'template-parts/content',
     content_type        = 'archive'
 -->
-</pre>
+```
 
 これはarchive.phpを生成するための雛形archive.htmlに書くべきヘッダの例です。
 必ずこの書式で、HTMLファイルの先頭に書いてください。
 
 ### タグの置き換え
 
-<pre>
+```html
 <!-- %inline: post_thumbnail() -->
 　<img style="max-width: 100%" src="img/thumbnail.jpeg">
 <!-- %end_inline -->
-</pre>
+```
 
 デザインの段階だと、見た目を調整したりいろいろしたいのでダミーの画像などを入れると思います。
 そういった部分をphpのコードに置き換えるため、上記のような書式を用いることができます。
@@ -107,11 +107,11 @@ HTMLテンプレートに含まれるjsとかcssのパスをここに記述し�
 
 なお、これはサムネイルの例ですが、当然サムネイル以外にも、一時的に入れたlorem ipsumを要約に置き換えるなどなど、種々のマクロが定義されています。
 
-<pre>
+```html
 <!-- %inline: php.the_except() -->
   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
 <!-- %end_inline -->
-</pre>
+```
 
 こんな感じです。この場合、<p>タグのローレムイプサムが、記事の要約を挿入するphp呼び出しに置き換えられます。
 
@@ -123,7 +123,7 @@ HTMLテンプレートに含まれるjsとかcssのパスをここに記述し�
 通常、Wordpressのテンプレートを作る際は、index.htmlなどのファイルを一個作り、切り出してphpファイルにコピペなどの不毛な作業が生じます。
 そもそも、このツールはそのコピペ作業が面倒で作ったものなのでした。ということで、下記のような記法を用いることでphpファイルの切り出し範囲を指定できます。
     
-<pre>
+```html
 <!-- %begin: "index.jinja" -->
                 <!-- primary -->
                 <div id="primary" class="content-area">					
@@ -152,7 +152,7 @@ HTMLテンプレートに含まれるjsとかcssのパスをここに記述し�
                     </main>
                 </div> <!-- #primary -->
 <!-- %end: "index.jinja" -->
-</pre>
+```
     
 コメントとして、%begin、%endなどのディレクティブを指定することで、その範囲をphpファイルとして切り出すことができます。
 上記の例ですと、id="primary"のdivタグが、index.phpとして切り出されることになるわけです。
