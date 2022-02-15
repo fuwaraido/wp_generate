@@ -56,14 +56,14 @@ theme_dirには自動生成されたphpテーマを出力するディレクト�
 
 そのほかは、function.phpの先頭のコメントに出力される文字列などです。
 
-### Functions
+### Functionsセクション
 
 これらの設定項目に興味がある場合、meta_template/\_functions.phpをご覧ください。おもに、functions.phpに何を記述するかの設定です。
 
-### Sidebar
+### Sidebarセクション
 サイドバーの設定です。お察しください（たぶん、Wordpressのテーマをいじったことのある人なら見当がつくはず）。
 
-### CSS/Script
+### CSS/Scriptセクション
 HTMLテンプレートに含まれるjsとかcssのパスをここに記述します。cssが複数ある時は[CSS_2]のように複数指定することができます。
 この設定項目は、たしか、ヘッダのところに<script>、<link>タグとして挿入される内容だったような気がする。
 
