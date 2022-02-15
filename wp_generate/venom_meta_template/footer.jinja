@@ -1,0 +1,13 @@
+{% import "_common.jinja" as php %}
+            </div> <!-- #content -->
+
+            <!-- site footer -->
+			<footer id="colophon" class="site-footer">
+                <p class="site-info">
+                    <span class="copy">&copy;</span>
+                    {{ php.date('Y') }}
+                    {{ php.site_link() }},&nbsp;All rights reserved.
+                </p>
+            </footer>
+            {{ php.wp_footer() }}
+        </div>

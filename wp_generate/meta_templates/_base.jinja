@@ -1,0 +1,134 @@
+{##
+ ## Some convenient Wordpress PHP block library for lazy sod (me)
+ ## probably depricated in next next version or sometimes in future.
+ ##}
+
+{% import "_common.jinja" as com %}
+
+{## 
+ ## Entry header block for lazy sod
+ ##
+ ## HTML:
+ ##
+ ## <header class="entry-header">
+ ##     <h1/h2 class="entry-title">Post title</h1/h2>
+ ##     <div class="entry-meta">
+ ##         <span class="posted-on">
+ ##             <a href="http://example.com/post-name" rel="bookmark">
+ ##                 <time ....>
+ ##             </a>
+ ##         </span>
+ ##         <span class="byline">
+ ##             <span class="author vcard">
+ ##                 <a href="...">Author</a>
+ ##             </span>
+ ##         </span>
+ ##     </div>
+ ## </header>
+ ##
+ ##}
+
+{% block entry_header %}
+<header class="entry-header">
+
+{% block entry_title %}
+<!-- entry title -->
+<?php if( is_singular() ) : ?>
+<h1 class="entry-title"><?php the_title() ?></h1>
+<?php else : ?>
+<h2 class="entry-title">{{ com.post_link() }}</h2>
+<?php endif; ?>
+{% endblock %}
+
+{% block entry_meta %}
+<div class="entry-meta">
+{% block entry_posted_on %}
+<!-- time stamp -->
+<span class="posted-on">
+    <a href="<?php the_permalink() ?>" rel="bookmark">
+        {{ com.post_date() }}
+    </a>
+</span>
+{% endblock %}
+
+{% block entry_posted_by %}
+<!-- author info -->
+<span class="byline"> 
+    <span class="author vcard">
+        {{ com.author_link() }}
+    </span>
+</span>
+{% endblock %}
+</div>
+{% endblock %}
+
+</header>
+{% endblock %}
+
+{##
+ ## Entry footer links for lazy sod
+ ##
+ ## HTML:
+ ##
+ ## <div class="nav-links">
+ ##     <div class="nav-previous"><a href="http...">Post title</a></div>
+ ##     <div class="nav-next"><a href="http...">Post title</a></div>
+ ## </div>
+ ##}
+{% block entry_links %}
+<div class="nav-links">
+    <div class="nav-previous"><?php previous_post_link() ?></div>
+    <div class="nav-next"><?php next_post_link() ?></div>
+</div>
+{% endblock %}
+
+{##
+ ## Entry footer for lazy sod
+ ##
+ ## HTML:
+ ##
+ ## <footer class="entry-footer">
+ ##     <span class="cat-links"><a href="/category">Category</a>....</span>
+ ##     <span class="tag-links"><a href="/tag">Tag</a>...</span>
+ ##     <span class="comment-link"><a href="/comments">Leave a Comment</a></span>
+ ##     <span class="edit-link"><a href="/edit?post-id">Edit</a></span>
+ ## </footer>
+ ##
+ ##}
+ {% block entry_footer %}
+ <footer class="entry-footer">
+
+ {% block cat_links %}
+<?php
+$categories_list = get_the_category_list( esc_html__( ', ', 'underscore' ) );
+if ( $categories_list ) : ?>
+    <span class="cat-links"><?php echo $categories_list ?></span>	
+<?php endif; ?>
+{% endblock %}
+
+{% block tag_links %}
+<?php
+$tags_list = get_the_tag_list('', esc_html_x( ', ', 'list item separator', 'underscore' ) );
+if ( $tags_list ) : ?>
+    <span class="tag-links"><?php echo $tags_list ?></span>
+<?php endif; ?>
+{% endblock %}
+
+{% block comments_link %}    
+<?php
+if ( ! is_single() && ! post_password_required()
+    && ( comments_open() || get_comments_number() ) ) : ?>
+    <span class="comment-link">
+        <?php comments_popup_link(esc_html__( 'Posted in %1$s', 'underscore' )) ?>
+    </span>
+<?php endif; ?>
+{% endblock %}
+
+{% block edit_link %}
+    <span class="edit-link">
+        <?php edit_post_link(esc_html__( 'Edit', 'underscore' )) ?>
+    </span>
+{% endblock %}
+
+ </footer>
+ {% endblock %}

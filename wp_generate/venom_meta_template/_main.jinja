@@ -1,0 +1,47 @@
+{% extends page.base_template %}
+
+{## 
+ ## post main loop generic template
+ ##}
+
+{% block main_area %}
+<?php if ( have_posts( ) ) : ?>
+
+{% if page.page_type == 'search' %}
+<?php if ( is_home() && ! is_front_page() ) : ?>
+<header class="page-header">
+<h1 class="page-title"><?php
+/* translators: %s: search query. */
+printf( esc_html__( 'Search Results for: %s', 'underscore' ), '<span>' . get_search_query() . '</span>' );
+?>
+</h1>
+</header><!-- .page-header -->		
+<?php endif; ?>
+{% elif page.page_type == 'archive' %}
+<header class="page-header">
+<?php
+the_archive_title( '<h1 class="page-title">', '</h1>' );
+the_archive_description( '<div class="archive-description">', '</div>' );
+?>
+</header><!-- .page-header -->
+{% endif %}
+
+<?php while( have_posts( ) ) : the_post( ) ?>
+
+<?php get_template_part( '{{ page.content_template }}', get_post_type()); ?>
+
+{% if page.has_comment %}
+<?php if ( comments_open() || get_comments_number() ) : ?>
+    <?php comments_template(); ?>
+<?php endif; ?>
+{% endif %}
+
+{% if page.has_navigation %}
+<?php the_post_navigation() ?>
+{% endif %}
+
+<?php endwhile; ?>
+<?php else: ?>
+<?php get_template_part( '{{ page.content_template }}', 'none' ); ?>
+<?php endif; ?>
+{% endblock %}

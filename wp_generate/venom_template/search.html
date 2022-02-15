@@ -1,0 +1,243 @@
+<!-- %PAGE:
+    page_type           = 'search',
+    has_comment         = False,
+    has_navigation      = True,
+    template            = '_main.jinja',
+    content_template    = 'template-parts/content',
+    content_type        = 'search'
+-->
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="style.css" />
+	</head>
+
+	<body>
+		<div id="page" class="site-container">		
+
+            <!-- site header -->
+			<header id="masthead" class="site-header">
+                <!-- site logo -->
+                <div class="site-branding">
+                    <h1 class="site-title">Title</h1>
+                    <!--<p class="site-description">Be happy with Viper!</p>-->
+                </div>
+
+                <!-- navigation menu -->
+                <nav id="site-navigation" class="main-navigation">
+                    <ul id="primary-menu" class="menu">
+                        <li id="menu-item-666" class="menu-item"><a href="#">Item1</a></li>
+                        <li id="menu-item-666" class="menu-item"><a href="#">Item2</a></li>
+                        <li id="menu-item-666" class="menu-item"><a href="#">Item3</a></li>
+                        <li id="menu-item-666" class="menu-item"><a href="#">Item4</a></li>
+                    </ul>
+                </nav>
+			</header>
+
+            <!-- content -->
+			<div id="content" class="site-content">
+
+<!-- %begin: "search.jinja" -->
+                <!-- primary -->
+                <div id="primary" class="content-area">					
+                    <main id="main" class="site-main">
+                        
+                        <!-- %skip -->
+                        <h2 class="primary-headings">Search Result</h2>
+                        <!-- %end -->
+
+                        <!-- %block: "main_area" --><!-- %end_block -->
+                 
+<!-- %begin: "template-parts/content-search.jinja" -->                        
+<!-- %end:"content-search.jinja" -->
+<!-- %skip -->                   
+                        <!-- article example -->
+                        <article id="post-666" class="post post-index-list">
+                            <header class="entry-header">
+                                <h1 class="entry-title"><!-- %inline: php.post_link -->Post title<!-- %end_inline --></h1>
+                            </header>
+
+                            <!-- thumbnail -->
+                            <a href="{{ php.the_permalink(True) }}" class="post-thumbnail" aria-hidden="true" tabindex="-1">
+                                <!-- %inline: post_thumbnail() -->
+                                <img style="max-width: 100%" src="img/thumbnail.jpeg">
+                                <!-- %end_inline -->
+                            </a>
+
+                            <!-- article content -->
+                            <div class="entry-content">
+                                <!-- %inline: php.the_except() -->
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                <!-- %end_inline -->
+                            </div>
+
+                            <!-- article footer -->
+                            <footer class="entry-footer">
+                                <div class="entry-meta">
+                                    <!-- published/modified date -->
+                                    <span class="posted-on">
+                                        <a href="#" rel="bookmark">
+                                            <time class="entry-date published" datetime="2019-09-28T22:47:26+09:00">2019/9/28</time>
+                                            <time class="updated" datetime="2019-10-04T10:58:58+09:00">2019/10/4</time>
+                                        </a>
+                                    </span>
+                                    <!-- byline -->
+                                    <span class="byline"> 
+                                        <span class="author vcard">
+                                            <a href="#">Author</a>
+                                        </span>
+                                    </span>
+                                    <span class="cat-links"><a href="#" rel="category tag">Categoty</a></span>
+                                    <span class="tags-links"><a href="#" rel="tag">Tag1</a>, <a href="#" rel="tag">Tag2</a></span>
+                                </div>                                
+                            </footer>
+                        </article>
+
+                        <!-- article example -->
+                        <article id="post-666" class="post post-index-list">
+                            <header class="entry-header">
+                                <h1 class="entry-title">Article Title</h1>                               
+                            </header>
+
+                            <!-- thumbnail -->
+                            <div class="post-thumbnail">
+                                <img style="max-width: 100%" src="img/island.jpg">
+                            </div>
+
+                            <!-- article content -->
+                            <div class="entry-content">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                            </div>
+
+                            <!-- article footer -->
+                            <footer class="entry-footer">
+                                 <!-- article meta -->
+                                 <div class="entry-meta">
+                                    <!-- published/modified date -->
+                                    <span class="posted-on">
+                                        <a href="#" rel="bookmark">
+                                            <time class="entry-date published" datetime="2019-09-28T22:47:26+09:00">2019/9/28</time>
+                                            <time class="updated" datetime="2019-10-04T10:58:58+09:00">2019/10/4</time>
+                                        </a>
+                                    </span>
+                                    <!-- byline -->
+                                    <span class="byline"> 
+                                        <span class="author vcard">
+                                            <a href="#">Author</a>
+                                        </span>
+                                    </span>
+                                    <span class="cat-links"><a href="#" rel="category tag">Categoty</a></span>
+                                    <span class="tags-links"><a href="#" rel="tag">Tag1</a>, <a href="#" rel="tag">Tag2</a></span>
+                                </div>
+                            </footer>
+                        </article>
+
+                        <!-- article example -->
+                        <article id="post-666" class="post post-index-list">
+                            <header class="entry-header">
+                                <h1 class="entry-title">Article Title</h1>
+                            </header>
+
+                            <!-- thumbnail -->
+                            <div class="post-thumbnail">
+                                <img style="max-width: 100%" src="img/japan.jpg">
+                            </div>
+
+                            <!-- article content -->
+                            <div class="entry-content">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                            </div>                                
+
+                            <!-- article footer -->
+                            <footer class="entry-footer">
+                                <!-- article meta -->
+                                <div class="entry-meta">
+                                    <!-- published/modified date -->
+                                    <span class="posted-on">
+                                        <a href="#" rel="bookmark">
+                                            <time class="entry-date published" datetime="2019-09-28T22:47:26+09:00">2019/9/28</time>
+                                            <time class="updated" datetime="2019-10-04T10:58:58+09:00">2019/10/4</time>
+                                        </a>
+                                    </span>
+                                    <!-- byline -->
+                                    <span class="byline"> 
+                                        <span class="author vcard">
+                                            <a href="#">Author</a>
+                                        </span>
+                                    </span>
+                                    <span class="cat-links"><a href="#" rel="category tag">Categoty</a></span>
+                                    <span class="tags-links"><a href="#" rel="tag">Tag1</a>, <a href="#" rel="tag">Tag2</a></span>
+                                </div>                                
+                            </footer>
+                        </article>
+<!-- %end -->
+                    </main>
+                </div> <!-- #primary -->
+<!-- %end: search.jinja -->
+                <!-- secondary -->
+				<aside id="secondary" class="widget-area">
+                    <section class="widget">
+                        <h1 class="widget-title">About Us</h1>
+                        <p>We are cutting edge news site of latest technology or something.</p>
+                        <p>Follow us on twitter and other social medium.</p>
+                    </section>
+                    <section class="widget">
+                        <h1 class="widget-title">Topics on Brainwasher</h1>
+                        <ul class="sidebar-topic-list">
+                            <li>Politics</li>
+                            <li>Science</li>
+                            <li>technology</li>
+                            <li>Goships</li>
+                        </ul>
+                    </section>
+					<section class="widget">
+                        <h1 class="widget-title">Popular Posts</h1>
+                        <div id="post-666" class="post sidebar-post">
+                            <!-- thumbnail -->
+                            <div class="list-post-thumbnail">
+                                <img style="max-width: 100%" src="img/thumbnail.jpeg">
+                            </div>            
+                            <!-- article content -->
+                            <div class="list-post-title">
+                                <h2>Article Title</h2>                                
+                                <span class="list-post-meta">Apr 9, 2019</span>
+                            </div>
+                        </div>
+                        <div id="post-666" class="post sidebar-post">
+                            <!-- thumbnail -->
+                            <div class="list-post-thumbnail">
+                                <img style="max-width: 100%" src="img/thumbnail.jpeg">
+                            </div>            
+                            <!-- article content -->
+                            <div class="list-post-title">
+                                <h2>Article Title</h2>
+                                <span class="list-post-meta">Apr 9, 2019</span>
+                            </div>
+                        </div>
+                        <div id="post-666" class="post sidebar-post">
+                            <!-- thumbnail -->
+                            <div class="list-post-thumbnail">
+                                <img style="max-width: 100%" src="img/thumbnail.jpeg">
+                            </div>            
+                            <!-- article content -->
+                            <div class="list-post-title">
+                                <h2>Article Title</h2>
+                                <span class="list-post-meta">Apr 9, 2019</span>
+                            </div>
+                        </div>
+                    </section>
+                </div> <!-- #secondary -->
+
+            </div> <!-- #content -->
+
+            <!-- site footer -->
+			<footer id="colophon" class="site-footer">
+                <p class="site-info">
+                    <span class="copy">&copy;</span>2019<a href="#">home</a>,&nbsp;All rights reserved.
+                </p>
+            </footer>
+        </div>
+	</body>
+</html>

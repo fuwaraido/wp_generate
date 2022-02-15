@@ -1,0 +1,244 @@
+
+{## some shorthand for wordpress functions ##}
+{% macro html_lang() %}<?php echo get_bloginfo('language'); ?>{% endmacro %}
+{% macro body_class() %}<?php echo esc_attr(join(' ', get_body_class(''))); ?>{% endmacro %}
+{% macro meta_charset() %}<?php bloginfo( 'charset' ); ?>{% endmacro %}
+{% macro wp_head() %}<?php wp_head(); ?>{% endmacro %}
+{% macro wp_footer() %}<?php wp_footer(); ?>{% endmacro %}
+{% macro the_excerpt() %}<?php the_excerpt() ?>{% endmacro %}
+{% macro prev_link() %}<?php previous_post_link() ?>{% endmacro %}
+{% macro next_link() %}<?php next_post_link() ?>{% endmacro %}
+{% macro edit_link() %}<?php edit_post_link(esc_html__( 'Edit', 'underscore' )) ?>{% endmacro %}
+{% macro the_author() %}<?php the_author() ?>{% endmacro %}
+{% macro the_title() %}<?php the_title() ?>{% endmacro %}
+{% macro the_date() %}<?php the_date() ?>{% endmacro %}
+{% macro the_modified_date() %}<?php the_modified_date() ?>{% endmacro %}
+{% macro the_permalink() %}<?php the_permalink() ?>{% endmacro %}
+{% macro the_title_attribute() %}<?php the_title_attribute() ?>{% endmacro %}
+{% macro date(format) %}<?php echo date({{ format | quote }}); ?>{% endmacro %}
+{% macro site_navigation() %}
+<?php
+wp_nav_menu( array(
+    'theme_location' => 'menu-1',
+    'menu_id'        => 'primary-menu',
+) );
+?>
+{% endmacro %}
+
+{##
+ ## Make link to homepage
+ ##
+ ## HTML: <a href="https://example.com" rel="home">name</a> 
+ ##}
+{% macro site_link() %}<a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a>{% endmacro %}
+
+{##
+ ## Make timestamp for an article
+ ##
+ ## HTML:
+ ## <time class="entry-date published" datetime="2019...">2019/2/4</time>
+ ## <time class="updated" datetime="2019...">2019/2/9</time>
+ ## OR:
+ ## <time class="entry-date published updated" datetime="2019...">2019/2/4</time>
+ ##}
+{% macro post_date() %}
+<?php if ( get_the_time( 'U' ) !== get_the_modified_time( 'U' ) ) : ?>
+    <time class="entry-date published" datetime="<?php the_date( DATE_W3C ) ?>">
+        <?php the_date() ?>
+    </time>
+    <time class="updated" datetime="<?php the_modified_date( DATE_W3C ) ?>">
+        <?php the_modified_date() ?>
+    </time>
+<?php else : ?>
+    <time class="entry-date published updated" datetime="<?php the_date( DATE_W3C ) ?>">
+        <?php the_date() ?>
+    </time>
+<?php endif; ?>
+{% endmacro %}
+
+{% macro post_date_link() %}
+<a href="<?php the_permalink() ?>" rel="bookmark">{{ post_date() }}</a>
+{% endmacro %}
+
+{##
+ ## Get url of the author of current post
+ ## 
+ ## URL:
+ ## http://example.com/author
+ ##}
+{% macro author_url() %}<?php esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ); ?>{% endmacro %}
+
+{##
+ ## Make link to the author
+ ##
+ ## HTML:
+ ## <a class="author-link" href="https://example.com/author">Author</a>
+ ##}
+{% macro author_link() %}<a class="url fn n" href="{{ author_url() }}"><?php echo esc_html(get_the_author()); ?></a>{% endmacro %}
+
+{##
+ ## Make link to the post
+ ##
+ ## HTML:
+ ## <a href="https://example.com/post-name" rel="bookmark">Post title</a>
+ ##}
+{% macro post_link() %}<a href="<?php the_permalink() ?>" rel="bookmark"><?php the_title() ?></a>{% endmacro %}
+
+{##
+ ## Make link of the categories for the post
+ ##
+ ## HTML:
+ ## <span class="cat-links"><a href="https://.../category">Category</a>...</span>
+ ##}
+{% macro cat_links() %}
+<?php $categories_list = get_the_category_list( esc_html__( ', ', 'underscore' ) );
+if ( $categories_list ) : ?>
+    <span class="cat-links"><?php echo $categories_list ?></span>	
+<?php endif; ?>
+{% endmacro %}
+
+{##
+ ## Make link of the tags for the post
+ ##
+ ## HTML:
+ ## <span class="tag-links"><a href="https://.../tag">Tag</a>...</span>
+ ##}
+{% macro tag_links() %}
+<?php $tags_list = get_the_tag_list('', esc_html_x( ', ', 'list item separator', 'underscore' ) );
+if ( $tags_list ) : ?>
+    <span class="tag-links"><?php echo $tags_list ?></span>
+<?php endif; ?>
+{% endmacro %}
+
+{##
+ ## Make link to the comment form
+ ##
+ ## HTML:
+ ## <span class="comment-link"><a href="http://.../comments">Leave a Comment</a></span>
+ ##}
+{% macro comments_link() %}
+<?php if ( ! is_single() && ! post_password_required() && ( comments_open() || get_comments_number() ) ) : ?>
+    <span class="comment-link">
+        <?php comments_popup_link(esc_html__( 'Posted in %1$s', 'underscore' )) ?>
+    </span>
+<?php endif; ?>
+{% endmacro %}
+
+{##
+ ## Make edit link for the post
+ ##
+ ## HTML:
+ ## <span class="edit-link"><a href="https://..../edit">Edit</a></span>
+ ##}
+{% block edit_link %}
+<span class="edit-link">
+    <?php edit_post_link(esc_html__( 'Edit', 'underscore' )) ?>
+</span>
+{% endblock %}
+
+{##
+ ## Make img tag for post thumbnail
+ ##
+ ## HTML:
+ ## <img src="http://link-to-the-image/">
+ ##}
+{% macro post_thumbnail(alt) -%}
+{% if alt %}
+    <?php the_post_thumbnail( 'post-thumbnail', array(
+        'alt' => the_title_attribute( array(
+            'echo' => false,
+        ) ),
+    ) ); ?>
+{% else %}<?php the_post_thumbnail(); ?>{% endif %}
+{%- endmacro %}
+
+{##
+ ## Make link to the thumbnail
+ ##
+ ## HTML:
+ ## <div class="post-thumbnail"></div>
+ ## OR
+ ## <a class="post-thumbnail" href="http://link-to-the-post"></a>
+ ##}
+{% macro post_thumbnail_link() %}
+<?php if ( !post_password_required() && !is_attachment() && has_post_thumbnail() ) : ?>
+    <?php if( is_singular() ) : ?>
+    <div class="post-thumbnail">{{ post_thumbnail(False) }}</div><!-- .post-thumbnail -->
+    <?php else : ?>
+    <a class="post-thumbnail" href="<?php the_permalink(); ?>" aria-hidden="true" tabindex="-1">{{ post_thumbnail(True) }}</a>
+    <?php endif; ?>
+<?php endif; ?>	
+{% endmacro %}
+
+{##
+ ## The content
+ ##}
+{% macro the_content(is_single) %}
+{% if is_single %}
+<?php the_content(esc_html__('Continue Reading')); ?>
+{% else %}
+<?php the_content() ?>
+{% endif %}
+{% endmacro %}
+
+{##
+ ## The entry title
+ ##
+ ## HTML:
+ ## <h1 class="entry-title">Post title</h1>
+ ## OR:
+ ## <h2 class="entry-title"><a href="http://link-to-the-post">Post title</a></h2>
+ ##}
+{% macro entry_title() %}
+<!-- entry title -->
+<?php if( is_singular() ) : ?>
+<h1 class="entry-title"><?php the_title() ?></h1>
+<?php else : ?>
+<h2 class="entry-title">{{ post_link() }}</h2>
+<?php endif; ?>
+{% endmacro %}
+
+{##
+ ## The site title
+ ##
+ ## HTML:
+ ## <h1 class="site-title"><a href="http://url-to-home" rel="home">Sitename</a></h1>
+ ## OR:
+ ## <p class="site-title"><a href="http://url-to-home" rel="home">Sitename</a></p>
+ ##}
+{% macro site_title() %}
+<?php if ( has_custom_logo() ) : ?>
+    <?php the_custom_logo(); ?>
+<?php elseif( is_front_page() && is_home() ) : ?>
+    <h1 class="site-title">{{ site_link() }}</h1>
+<?php else : ?>
+    <p class="site-title">{{ site_link() }}</p>
+<?php endif; ?>
+{% endmacro %}
+
+{##
+ ## Description of website
+ ##
+ ## HTML:
+ ## <p class="site-description">Blah, Blah</p>
+ ##}
+{% macro site_description() %}
+<?php $desc = get_bloginfo( 'description', 'display' );
+if($desc || is_customize_preview()) : ?>
+    <p class="site-description"><?php echo $desc; ?></p>
+<?php endif; ?>
+{% endmacro %}
+
+{##
+ ## display dynamic sidebar
+ ##}
+{% macro widget_area() %}<?php dynamic_sidebar( 'sidebar-1' ); ?>{% endmacro %}
+
+{##
+ ## start post loop
+ ##}
+{% macro if_have_posts() %}<?php if( have_posts() ) : ?>{% endmacro %}
+{% macro _else() %}<?php else: ?>{% endmacro %}
+{% macro end_if() %}<?php endif; ?>{% endmacro %}
+{% macro while_posts() %}<?php while( have_posts () ): the_post(); ?>{% endmacro %}
+{% macro end_while() %}<?php endwhile; ?>{% endmacro %}

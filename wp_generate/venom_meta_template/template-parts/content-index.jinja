@@ -1,0 +1,37 @@
+{% import "_common.jinja" as php %}
+                        <article id="post-<?php the_ID(); ?>" class="<?php post_class(); ?>">
+                            <header class="entry-header">
+                                {{ php.entry_title() }}
+                            </header>
+
+                            <!-- thumbnail -->
+                            <a href="{{ php.the_permalink() }}" class="post-thumbnail" aria-hidden="true" tabindex="-1">
+                                {{ php.post_thumbnail() }}
+                            </a>
+
+                            <!-- article content -->
+                            <div class="entry-content">
+                                {{ php.the_excerpt() }}
+                            </div>                               
+
+                            <!-- article footer -->
+                            <footer class="entry-footer">
+                                <!-- article meta -->
+                                <div class="entry-meta">
+                                    <!-- published/modified date -->
+                                    <span class="posted-on">
+                                        {{ php.post_date_link() }}
+                                    </span>
+                                    <!-- byline -->
+                                    <span class="byline"> 
+                                        <span class="author vcard">
+                                            {{ php.author_link() }}
+                                        </span>
+                                    </span>
+
+                                    {{ php.cat_links() }}
+
+                                    {{ php.tag_links() }}
+                                </div>                                
+                            </footer>
+                        </article>

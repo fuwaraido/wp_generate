@@ -1,0 +1,31 @@
+{% import "_common.jinja" as php %}
+<!doctype html>
+<html lang="{{ php.html_lang() }}">
+    <head>
+        {% block html_meta %}
+        <meta charset="{{ php.meta_charset() }}">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        {% endblock %}
+        {{ php.wp_head() }}
+	</head>
+
+	<body class="{{ php.body_class() }}">
+		<div id="page" class="site-container">		
+
+            <!-- site header -->
+			<header id="masthead" class="site-header">
+                <!-- site logo -->
+                <div class="site-branding">
+                    {{ php.site_title() }}
+                    <!-- <p class="site-description">Be happy with Viper!</p> -->
+                </div>
+
+                <!-- navigation menu -->
+                <nav id="site-navigation" class="main-navigation">
+                    {{ php.site_navigation() }}
+                </nav>
+			</header>
+
+            <!-- content -->
+			<div id="content" class="site-content">

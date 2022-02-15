@@ -1,0 +1,45 @@
+{% import "_common.jinja" as php %}
+                        <article id="post-<?php the_ID(); ?>" class="<?php post_class(); ?>">
+                            <header class="entry-header">
+                                {{ php.entry_title() }}
+
+                                {{ php.the_excerpt() }}
+
+                                {% block entry_meta %}
+                                <div class="entry-meta">
+                                    <!-- published/modified date -->
+                                    <span class="posted-on">
+                                        {{ php.post_date_link() }}
+                                    </span>
+                                    <!-- byline -->
+                                    <span class="byline"> 
+                                        <span class="author vcard">
+                                            {{ php.author_link() }}
+                                        </span>
+                                    </span>
+                                </div>
+                                {% endblock %}
+                            </header>
+
+                            <!-- thumbnail -->
+                            <div class="post-thumbnail">
+                                {{ php.post_thumbnail(False) }}
+                            </div>
+
+                            <!-- article content -->
+                            {{ php.the_content(True) }}
+
+                            <!-- article footer -->
+                            {% block entry_footer %}
+                            <footer class="entry-footer">
+                                {{ php.cat_links() }}
+                                {{ php.tag_links() }}
+                            </footer>
+                            {% endblock %}
+
+                            <!-- navlinks -->
+                            {% block footer_links %}
+                            <div class="nav-previous">{{ php.prev_link() }}</div>
+                            <div class="nav-next">{{ php.next_link() }}</div>
+                            {% endblock %}
+                        </article>
