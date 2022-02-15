@@ -18,15 +18,19 @@ wp_generateフォルダには、スクリプト本体のほか、スクリプト
 
 ## プログラム本体
 meta_templates - PHPコードのマクロテンプレート
+
 pretty.py - HTMLの書式を整えるクラスのモジュール。PHPが混じっていてもそれなりに奇麗な書式になる（はず）なのがミソです。
+
 maketheme.py - Wordpressテンプレート生成用スクリプト本体。
 
 ## Venomサンプル用定義ファイル
 venom.ini - 「Venom」テーマのサンプル設定ファイル。
+
 venom_template - サンプルテーマ「Venom」用アノテーション付きHTML一式。
 
 ## 自動生成済みVenomテーマ
 venom_meta_template - 自動生成される「Venom」サンプルテーマ生成用中間ファイル。
+
 venom - 自動生成された「Venom」テーマが格納されているフォルダ。
 
 # 使用法
