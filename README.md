@@ -161,7 +161,7 @@ HTMLテンプレートに含まれるjsとかcssのパスをここに記述し�
 大元のHTMLを直して、テーマ全体を再生成してしまえばそれでOKですので、修正箇所が減るわけです。
 
 ちなみに、上記の例ではindex.phpの中に、template-parts/content-index.jinjaが入れ子で入っています。
-これは、\#primaryの<div>内にある<article>タグの内容がさらに切り出されてtemplate-parts/content-index.phpとして生成されることを意味します。
+これは、\#primaryのdivにあるarticleタグの内容がさらに切り出されてtemplate-parts/content-index.phpとして生成されることを意味します。
 このように%begin~%endディレクティブは入れ子にすることが可能です。
     
 header.php、footer.php、sidebar.phpも同様に生成できますが、こちらに関してはindex.phpに相当するindex.htmlで一度だけアノテーションをつければOKです。
