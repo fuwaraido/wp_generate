@@ -140,7 +140,9 @@ Wordpressを利用する場合、content領域のdivの中身をphpが吐くコ�
 のようなブロックなら、次のように置き換えられることが期待されます。
     
 ```html
+<!-- コンテンツ領域 -->
 <div class="content-area" id="primary">
+	<!-- ここから、記事のHTML記述 -->
 	<?php if ( have_posts( ) ) : ?>
 	<?php while( have_posts( ) ) : the_post( ) ?>
 	<?php get_template_part( 'template-parts/content-index', get_post_type()); ?>
@@ -152,6 +154,7 @@ Wordpressを利用する場合、content領域のdivの中身をphpが吐くコ�
 	<?php else: ?>
 	<?php get_template_part( 'template-parts/content-index', 'none' ); ?>
 	<?php endif; ?>
+	<!-- ここまで、置き換え範囲 -->
 </div>
 ```
 
