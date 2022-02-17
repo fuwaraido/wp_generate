@@ -118,6 +118,45 @@ HTMLテンプレートに含まれるjsとかcssのパスをここに記述し�
 マクロの定義については、meta_template/\_common.jinjaでまとめて定義しています。
 本来一つ一つのマクロについて説明を書くべきなのかもしれませんが、結局、単なる置き換えなので当該ファイルを見た方が早いと思われます。
     
+### ブロックの置き換え
+    
+Wordpressを利用する場合、content領域のdivの中身をphpが吐くコンテンツに置き換えることになると思います。ただ、この辺を空にしておくと、HTMLの出来栄えやレイアウトをブラウザで確認する際に面倒なので、ブロック単位でタグの置き換え（コメントで囲まれる部分がからの場合は、挿入のみ）をすることもできます。例えば、
+   
+```html
+<!-- コンテンツ領域 -->
+<div class="content-area" id="primary">
+    <!-- %block: "main_area" -->
+    <!-- ここから、記事のHTML記述 -->
+    <article id="xxx">
+        <section id="xxx">
+            ....
+        </section>
+    </article>
+    <!-- ここまで、置き換え範囲 -->
+    <!-- %end_block -->
+</div>
+```
+
+のようなブロックなら、次のように置き換えられることが期待されます。
+    
+```html
+<div class="content-area" id="primary">
+	<?php if ( have_posts( ) ) : ?>
+	<?php while( have_posts( ) ) : the_post( ) ?>
+	<?php get_template_part( 'template-parts/content-index', get_post_type()); ?>
+	<?php if ( comments_open() || get_comments_number() ) : ?>
+	<?php comments_template(); ?>
+	<?php endif; ?>
+	<?php the_post_navigation() ?>
+	<?php endwhile; ?>
+	<?php else: ?>
+	<?php get_template_part( 'template-parts/content-index', 'none' ); ?>
+	<?php endif; ?>
+</div>
+```
+
+ここで出力されているphpの「中身」を定義しているのが、meta_templatesにある種々のjinjaファイルです。
+    
 ### ファイルの切り出し
     
 通常、Wordpressのテンプレートを作る際は、index.htmlなどのファイルを一個作り、切り出してphpファイルにコピペなどの不毛な作業が生じます。
